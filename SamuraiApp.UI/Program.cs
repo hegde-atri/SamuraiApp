@@ -14,15 +14,15 @@ namespace SamuraiApp.UI
 
         private static void Main(string[] args)
         {
-            //AddSamuraisByName("Shimada", "Okamoto", "Kikuchio", "Hayashida");
-            //GetSamurais();
-            //AddVariousTypes();
-            //QueryFilters();
-            //QueryAggregates();
-            //RetrieveAndUpdateSamurai();
-            //RetrieveAndUpdateMultipleSamurais();
-            //MultipleDatabaseOperations();
-            //RetrieveAndDeleteASamurai();
+            AddSamuraisByName("Shimada", "Okamoto", "Kikuchio", "Hayashida");
+            GetSamurais();
+            AddVariousTypes();
+            QueryFilters();
+            QueryAggregates();
+            RetrieveAndUpdateSamurai();
+            RetrieveAndUpdateMultipleSamurais();
+            MultipleDatabaseOperations();
+            RetrieveAndDeleteASamurai();
             QueryAndUpdateBattles_Disconnected();
         }
 
