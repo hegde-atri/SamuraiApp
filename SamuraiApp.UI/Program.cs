@@ -11,19 +11,21 @@ namespace SamuraiApp.UI
     class Program
     {
         private static SamuraiContext _context = new SamuraiContext();
+        private static SamuraiContext _contextNT = new SamuraiContextNoTracking();
 
         private static void Main(string[] args)
         {
-            AddSamuraisByName("Shimada", "Okamoto", "Kikuchio", "Hayashida");
-            GetSamurais();
-            AddVariousTypes();
-            QueryFilters();
-            QueryAggregates();
-            RetrieveAndUpdateSamurai();
-            RetrieveAndUpdateMultipleSamurais();
-            MultipleDatabaseOperations();
-            RetrieveAndDeleteASamurai();
-            QueryAndUpdateBattles_Disconnected();
+            //AddSamuraisByName("Shimada", "Okamoto", "Kikuchio", "Hayashida");
+            //GetSamurais();
+            //AddVariousTypes();
+            //QueryFilters();
+            //QueryAggregates();
+            //RetrieveAndUpdateSamurai();
+            //RetrieveAndUpdateMultipleSamurais();
+            //MultipleDatabaseOperations();
+            //RetrieveAndDeleteASamurai();
+            //QueryAndUpdateBattles_Disconnected();
+            //InsertNewSamuraiWithAQuote();
         }
 
         private static void AddVariousTypes()
@@ -56,7 +58,7 @@ namespace SamuraiApp.UI
         }
         private static void GetSamurais()
         {
-            var samurais = _context.Samurais
+            var samurais = _contextNT.Samurais
                 .TagWith("ConsoleApp.Program.GetSamurais method")
                 .ToList();
             Console.WriteLine($"Samurai count is {samurais.Count}");
@@ -110,7 +112,7 @@ namespace SamuraiApp.UI
             List<Battle> disconnectedBattles;
             using (var context1=new SamuraiContext())
             {
-                disconnectedBattles = _context.Battles.ToList();
+                disconnectedBattles = context1.Battles.ToList();
             } //context1 is disposed
             disconnectedBattles.ForEach(b =>
                 {
@@ -122,6 +124,20 @@ namespace SamuraiApp.UI
                 context2.UpdateRange(disconnectedBattles);
                 context2.SaveChanges();
             }
+        }
+
+        private static void InsertNewSamuraiWithAQuote()
+        {
+            var samurai = new Samurai
+            {
+                Name = "Kambei Shimada",
+                Quotes = new List<Quote>
+                {
+                    new Quote {Text = "I've come to save you"}
+                }
+            };
+            _context.Samurais.Add(samurai);
+            _context.SaveChanges();
         }
     }
 }
